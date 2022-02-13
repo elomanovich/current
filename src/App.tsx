@@ -2,45 +2,36 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Counter} from "./components/Counter";
 import {SetCounter} from "./components/SetCounter";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "./bll/store";
+import {incCounterAC} from "./bll/counter-reducer";
 
 function App() {
-    let [current, setCurrent] = useState(0)
+
+    const value = useSelector<AppStateType, number>((state) => state.counter.value)
+
+    const dispatch = useDispatch()
+
+    const changeCurrent = () => {
+       dispatch(incCounterAC())
+    }
+
     let [valueMax, setValueMax] = useState(Infinity)
 
-    useEffect(() => {
-        let currentValue = localStorage.getItem('currentValue')
-        if (currentValue) {
-            setCurrent(JSON.parse(currentValue))
-        }
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem('currentValue', JSON.stringify(current))
-    }, [current])
-
-    const changeCurrent = (c: number) => {
-        setCurrent(c + 1)
-
-    }
     const resetCurrent = () => {
-        setCurrent(0)
         setValueMax(Infinity)
     }
-    //const disabledReset = () => current === 0
-    const disabledInc = () => current === valueMax
+    // const disabledReset = () => value === 0
+    const disabledInc = () => value === valueMax
     const changeMaxValue = (v: number) => {
         valueMax = v
         setValueMax(valueMax)
-    }
-    const changeMinValue = (v: number) => {
-        current = v
-        setCurrent(current)
     }
 
     return (
         <div className="App">
             <Counter
-                current={current}
+                current={value}
                 changeCurrent={changeCurrent}
                 resetCurrent={resetCurrent}
                 // disabledReset={disabledReset}
@@ -49,7 +40,7 @@ function App() {
             />
             <SetCounter
                 changeMaxValue={changeMaxValue}
-                changeMinValue={changeMinValue}
+                // changeMinValue={changeMinValue}
             />
         </div>
     );

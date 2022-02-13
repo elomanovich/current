@@ -3,7 +3,7 @@ import React, {ChangeEvent, useState} from "react";
 
 type propsType = {
     changeMaxValue: (v: number) => void
-    changeMinValue: (v: number) => void
+    // changeMinValue: (v: number) => void
 }
 
 export const SetCounter = (props: propsType) => {
@@ -19,7 +19,7 @@ export const SetCounter = (props: propsType) => {
     }
     const setCounter = () => {
         props.changeMaxValue(valueMax)
-        props.changeMinValue(valueMin)
+        // props.changeMinValue(valueMin)
     }
 
     return (

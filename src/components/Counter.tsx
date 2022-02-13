@@ -4,7 +4,7 @@ import React from "react";
 
 type propsType = {
     current:number
-    changeCurrent:(c:number)=> void
+    changeCurrent:()=> void
     resetCurrent:(c:number)=> void
     disabledReset?:()=> boolean
     disabledInc: ()=> boolean
